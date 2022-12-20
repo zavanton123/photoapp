@@ -1,6 +1,7 @@
 package com.zavanton.photoapp.photos.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -26,6 +27,9 @@ class PhotosActivity : ComponentActivity() {
         PhotosComponentManager.component.inject(this)
 
         super.onCreate(savedInstanceState)
+
+        // todo zavanton - delete
+        Log.d("zavanton", "zavanton - view model: $photosViewModel")
 
         setContent {
             PhotoAppTheme {
