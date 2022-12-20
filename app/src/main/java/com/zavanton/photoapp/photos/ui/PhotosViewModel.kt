@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.zavanton.photoapp.photos.business.IPhotosInteractor
+import com.zavanton.photoapp.photos.di.PhotosComponentManager
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,6 +25,11 @@ class PhotosViewModel constructor(
                 Log.d("zavanton", "zavanton - photo: $it")
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        PhotosComponentManager.clear()
     }
 }
 

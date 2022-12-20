@@ -14,6 +14,7 @@ import dagger.Component
     modules = [
         ApiModule::class,
         PhotosInteractorModule::class,
+        PhotosRepositoryModule::class,
     ]
 )
 interface PhotosComponent {
