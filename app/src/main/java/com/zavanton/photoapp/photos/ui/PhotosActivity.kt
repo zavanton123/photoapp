@@ -1,18 +1,18 @@
 package com.zavanton.photoapp.photos.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.zavanton.photoapp.photos.di.PhotosComponentManager
+import com.zavanton.photoapp.photos.ui.list.PhotoListScreen
+import com.zavanton.photoapp.photos.ui.models.PhotoListUiState
 import com.zavanton.photoapp.ui.theme.PhotoAppTheme
 import javax.inject.Inject
 
@@ -25,32 +25,17 @@ class PhotosActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         PhotosComponentManager.component.inject(this)
-
         super.onCreate(savedInstanceState)
 
-        // todo zavanton - delete
-        Log.d("zavanton", "zavanton - view model: $photosViewModel")
-
         setContent {
+            val state: PhotoListUiState by photosViewModel.state.collectAsState(initial = PhotoListUiState.Loading)
+
             PhotoAppTheme {
                 Surface(modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background) {
-                    Greeting("Android")
+                    PhotoListScreen(state = state)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    PhotoAppTheme {
-        Greeting("Android")
     }
 }
