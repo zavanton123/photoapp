@@ -8,6 +8,8 @@ class PhotoApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        // todo zavanton - delete
         Log.d("zavanton", "zavanton - photo app")
 
         AppComponentManager.init(context = this)
