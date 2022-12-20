@@ -1,4 +1,4 @@
-package com.zavanton.photoapp.photos
+package com.zavanton.photoapp.photos.ui
 
 import android.os.Bundle
 import android.util.Log

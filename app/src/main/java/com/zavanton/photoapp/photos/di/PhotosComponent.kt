@@ -3,7 +3,7 @@ package com.zavanton.photoapp.photos.di
 import com.zavanton.photoapp.app.di.AppComponentManager
 import com.zavanton.photoapp.app.di.FeatureScope
 import com.zavanton.photoapp.app.di.NetworkDependencies
-import com.zavanton.photoapp.photos.PhotosActivity
+import com.zavanton.photoapp.photos.ui.PhotosActivity
 import dagger.Component
 
 @FeatureScope
