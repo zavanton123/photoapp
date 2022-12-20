@@ -76,6 +76,7 @@ dependencies {
     // Networking
     implementation retrofit.core
     implementation retrofit.moshi
+    implementation retrofit.logging_interceptor
 
     // Moshi
     implementation moshi.core
