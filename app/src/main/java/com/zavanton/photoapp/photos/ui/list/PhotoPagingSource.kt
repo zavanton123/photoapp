@@ -7,7 +7,7 @@ import com.zavanton.photoapp.photos.business.IPhotosInteractor
 import com.zavanton.photoapp.photos.ui.models.PhotoUiModel
 import com.zavanton.photoapp.photos.ui.models.toUiModel
 
-class PhotoDataSource(
+class PhotoPagingSource(
     private val photoInteractor: IPhotosInteractor,
 ) : PagingSource<String, PhotoUiModel>() {
 
