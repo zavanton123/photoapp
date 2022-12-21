@@ -90,6 +90,9 @@ dependencies {
     // Coil
     implementation coil.compose
 
+    // Navigation
+    implementation navigation.compose
+
     // TESTING
     // JUnit
     testImplementation junit.core

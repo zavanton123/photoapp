@@ -63,9 +63,7 @@ ext {
     ]
 
     navigation = [
-            core   : "androidx.navigation:navigation-fragment-ktx:$navigation_version",
-            ui     : "androidx.navigation:navigation-ui-ktx:$navigation_version",
-            testing: "androidx.navigation:navigation-testing:$navigation_version",
+            compose: "androidx.navigation:navigation-compose:$navigation_version",
     ]
 
     junit = [
