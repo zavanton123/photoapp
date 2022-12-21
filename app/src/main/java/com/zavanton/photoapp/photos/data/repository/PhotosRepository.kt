@@ -9,7 +9,6 @@ import com.zavanton.photoapp.photos.data.api.toDbModel
 import com.zavanton.photoapp.photos.data.db.PhotoDao
 import com.zavanton.photoapp.photos.data.db.PhotoDbModel
 import com.zavanton.photoapp.photos.data.db.toBusinessModel
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -20,26 +19,39 @@ class PhotosRepository @Inject constructor(
     private val photoDao: PhotoDao,
 ) : IPhotosRepository {
 
-    override suspend fun downloadPhotos(maxPhotoId: String?): List<PhotoBusinessModel> {
-        val models: List<PhotoDbModel> = photoApi
-            .download(
-                apiKey = apiKey,
-                maxPhotoId = maxPhotoId,
-            )
-            .map {
-                it.toDbModel()
-            }
-            .onEach {
-                // todo zavanton - delete
-                delay(100)
-            }
+    companion object {
+        const val PAGE_SIZE = 10
+    }
 
+    override suspend fun downloadPhotos(maxPhotoId: String?): List<PhotoBusinessModel> {
         // todo zavanton - delete
-        Log.d("zavanton", "zavanton - before insert")
-        photoDao.insertPhotos(models)
+        Log.d("zavanton", "zavanton - downloadPhotos: $maxPhotoId")
+
+        var models: List<PhotoDbModel> = fetchNext(maxPhotoId)
+
+        if (models.isEmpty()) {
+            models = photoApi
+                .download(
+                    apiKey = apiKey,
+                    maxPhotoId = maxPhotoId,
+                )
+                .map {
+                    it.toDbModel()
+                }
+
+            photoDao.insertPhotos(models)
+        }
 
         return models.map {
             it.toBusinessModel()
+        }
+    }
+
+    private suspend fun fetchNext(maxPhotoId: String?): List<PhotoDbModel> {
+        return if (maxPhotoId == null) {
+            photoDao.fetchFirstPage(PAGE_SIZE)
+        } else {
+            photoDao.fetchPhotoPage(maxPhotoId, PAGE_SIZE)
         }
     }
 }

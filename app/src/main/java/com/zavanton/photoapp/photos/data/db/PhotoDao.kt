@@ -22,7 +22,10 @@ interface PhotoDao {
     @Query("select * from photo where id > :id limit 1")
     suspend fun fetchPreviousPhoto(id: String): PhotoDbModel
 
-    @Query("select * from photo where id < :maxId limit :pageSize")
+    @Query("select * from photo order by id desc limit :pageSize")
+    suspend fun fetchFirstPage(pageSize: Int): List<PhotoDbModel>
+
+    @Query("select * from photo where id < :maxId order by id desc limit :pageSize")
     suspend fun fetchPhotoPage(maxId: String, pageSize: Int): List<PhotoDbModel>
 
     @Insert

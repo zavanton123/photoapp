@@ -1,5 +1,6 @@
 package com.zavanton.photoapp.photos.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -38,7 +39,15 @@ class PhotosViewModel constructor(
     init {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                photoDao.removeAll()
+                // photoDao.removeAll()
+
+//                val id = "6194df94e5d1e"
+//                val photos = photoDao.fetchPhotoPage(id, 10)
+//
+//                photos.forEach {
+//                    // todo zavanton - delete
+//                    Log.d("zavanton", "zavanton - photo: $it")
+//                }
             }
         }
     }
