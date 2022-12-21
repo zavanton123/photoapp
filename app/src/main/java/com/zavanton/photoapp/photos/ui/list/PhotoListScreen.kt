@@ -1,5 +1,6 @@
 package com.zavanton.photoapp.photos.ui.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import com.zavanton.photoapp.ui.theme.PhotoAppTheme
 @Composable
 fun PhotoListScreen(
     state: PhotoListUiState,
+    onPhotoClicked: () -> Unit,
 ) {
     when (state) {
         PhotoListUiState.Loading -> {
@@ -32,7 +34,10 @@ fun PhotoListScreen(
             LoadingPhotoListError()
         }
         is PhotoListUiState.Loaded -> {
-            LoadedPhotos(state.photos)
+            LoadedPhotos(
+                photos = state.photos,
+                onPhotoClicked = onPhotoClicked,
+            )
         }
     }
 }
@@ -41,10 +46,14 @@ fun PhotoListScreen(
 private fun LoadedPhotos(
     photos: List<PhotoUiModel>,
     modifier: Modifier = Modifier,
+    onPhotoClicked: () -> Unit,
 ) {
     LazyColumn(modifier = modifier) {
         items(photos) { photo ->
-            PhotoListItem(model = photo)
+            PhotoListItem(
+                model = photo,
+                onPhotoClicked = onPhotoClicked,
+            )
         }
     }
 }
@@ -53,10 +62,14 @@ private fun LoadedPhotos(
 private fun PhotoListItem(
     model: PhotoUiModel,
     modifier: Modifier = Modifier,
+    onPhotoClicked: () -> Unit,
 ) {
     Row(
         modifier = modifier
             .padding(vertical = 8.dp)
+            .clickable {
+                onPhotoClicked()
+            }
     ) {
         AsyncImage(
             modifier = Modifier

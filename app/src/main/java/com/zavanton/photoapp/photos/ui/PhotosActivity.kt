@@ -62,7 +62,12 @@ fun PhotosNavHost(
         startDestination = startDestination,
     ) {
         composable(PHOTO_LIST) {
-            PhotoListScreen(state = state)
+            val onPhotoClicked: () -> Unit = { navController.navigate(PHOTO_DETAILS) }
+
+            PhotoListScreen(
+                state = state,
+                onPhotoClicked = onPhotoClicked,
+            )
         }
         composable(PHOTO_DETAILS) {
             PhotoDetailsScreen()
