@@ -94,6 +94,11 @@ dependencies {
     implementation paging.runtime
     implementation paging.compose
 
+    // Room
+    implementation room.runtime
+    kapt room.compiler
+    implementation room.paging
+
     // Navigation
     implementation navigation.compose
 
@@ -113,4 +118,7 @@ dependencies {
 
     // Compose junit
     androidTestImplementation androidx.compose_ui_test_junit
+
+    // Room testing
+    testImplementation room.testing
 }
