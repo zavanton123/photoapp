@@ -7,7 +7,7 @@ import com.zavanton.photoapp.photos.business.IPhotosInteractor
 import com.zavanton.photoapp.photos.ui.models.PhotoUiModel
 import com.zavanton.photoapp.photos.ui.models.toUiModel
 
-class PhotoDataSource(
+class PhotoPagingSource(
     private val photoInteractor: IPhotosInteractor,
 ) : PagingSource<String, PhotoUiModel>() {
 
@@ -26,7 +26,6 @@ class PhotoDataSource(
 
             LoadResult.Page(
                 data = models,
-                // todo zavanton - check if prevKey = null is ok?
                 prevKey = null,
                 nextKey = models.last().photoId.takeIf { models.isNotEmpty() },
             )

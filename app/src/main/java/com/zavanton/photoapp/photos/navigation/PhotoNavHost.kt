@@ -22,6 +22,7 @@ fun PhotosNavHost(
     items: LazyPagingItems<PhotoUiModel>,
     navController: NavHostController = rememberNavController(),
     startDestination: String = NavigationDestinations.PHOTO_LIST,
+    onSwipe: suspend () -> Unit,
 ) {
     NavHost(
         modifier = Modifier,
@@ -43,6 +44,7 @@ fun PhotosNavHost(
             PhotoListScreen(
                 items = items,
                 onPhotoClicked = onPhotoClicked,
+                onSwipe = onSwipe,
             )
         }
         composable(

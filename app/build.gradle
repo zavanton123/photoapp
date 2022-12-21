@@ -61,6 +61,7 @@ dependencies {
     implementation androidx.activity_compose
     implementation androidx.compose_ui
     implementation androidx.compose_ui_tooling_preview
+    implementation androidx.compose_material
     implementation androidx.compose_material3
     debugImplementation androidx.compose_ui_tooling
     debugImplementation androidx.compose_ui_test_manifest
@@ -94,6 +95,12 @@ dependencies {
     implementation paging.runtime
     implementation paging.compose
 
+    // Room
+    implementation room.runtime
+    kapt room.compiler
+    implementation room.paging
+    implementation room.kotlin
+
     // Navigation
     implementation navigation.compose
 
@@ -113,4 +120,7 @@ dependencies {
 
     // Compose junit
     androidTestImplementation androidx.compose_ui_test_junit
+
+    // Room testing
+    testImplementation room.testing
 }

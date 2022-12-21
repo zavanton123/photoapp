@@ -1,4 +1,4 @@
-package com.zavanton.photoapp.photos.business.models
+package com.zavanton.photoapp.photos.business
 
 data class PhotoBusinessModel(
     val id: String,
