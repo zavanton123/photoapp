@@ -1,6 +1,5 @@
 package com.zavanton.photoapp.photos.data.repository
 
-import android.util.Log
 import com.zavanton.photoapp.app.di.API_KEY_VALUE
 import com.zavanton.photoapp.photos.business.IPhotosRepository
 import com.zavanton.photoapp.photos.business.PhotoBusinessModel
@@ -24,9 +23,6 @@ class PhotosRepository @Inject constructor(
     }
 
     override suspend fun downloadPhotos(maxPhotoId: String?): List<PhotoBusinessModel> {
-        // todo zavanton - delete
-        Log.d("zavanton", "zavanton - downloadPhotos: $maxPhotoId")
-
         var models: List<PhotoDbModel> = fetchNext(maxPhotoId)
 
         if (models.isEmpty()) {
