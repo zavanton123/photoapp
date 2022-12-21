@@ -61,6 +61,7 @@ dependencies {
     implementation androidx.activity_compose
     implementation androidx.compose_ui
     implementation androidx.compose_ui_tooling_preview
+    implementation androidx.compose_material
     implementation androidx.compose_material3
     debugImplementation androidx.compose_ui_tooling
     debugImplementation androidx.compose_ui_test_manifest

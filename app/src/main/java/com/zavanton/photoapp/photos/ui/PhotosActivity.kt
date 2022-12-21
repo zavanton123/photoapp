@@ -36,7 +36,9 @@ class PhotosActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    PhotosNavHost(items = items)
+                    PhotosNavHost(
+                        items = items,
+                    )
                 }
             }
         }
