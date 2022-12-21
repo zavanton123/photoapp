@@ -81,6 +81,8 @@ private fun PhotoListItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            // todo zavanton - delete
+            .size(400.dp)
             .padding(vertical = 8.dp)
             .clickable {
                 onPhotoClicked(model)
