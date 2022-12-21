@@ -87,6 +87,9 @@ dependencies {
     implementation moshi.core
     kapt moshi.kapt
 
+    // Coil
+    implementation coil.compose
+
     // TESTING
     // JUnit
     testImplementation junit.core
