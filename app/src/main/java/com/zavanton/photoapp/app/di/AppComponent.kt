@@ -11,9 +11,10 @@ const val API_KEY_VALUE = "API_KEY_VALUE"
 @Component(
     modules = [
         NetworkingModule::class,
+        DbModule::class,
     ]
 )
-interface AppComponent : NetworkDependencies {
+interface AppComponent : NetworkDependencies, DbDependencies {
 
     @Component.Builder
     interface Builder {
