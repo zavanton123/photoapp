@@ -7,7 +7,7 @@ class PhotosInteractor @Inject constructor(
     private val photosRepository: IPhotosRepository,
 ) : IPhotosInteractor {
 
-    override suspend fun downloadPhotos(): List<PhotoBusinessModel> {
-        return photosRepository.downloadPhotos()
+    override suspend fun downloadPhotos(maxPhotoId: String?): List<PhotoBusinessModel> {
+        return photosRepository.downloadPhotos(maxPhotoId)
     }
 }

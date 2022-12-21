@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PhotoApp</string>
+    <string name="loading">Loading...</string>
+    <string name="load_error">Something went wrong</string>
 </resources>
