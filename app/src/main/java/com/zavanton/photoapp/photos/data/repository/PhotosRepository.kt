@@ -47,6 +47,10 @@ class PhotosRepository @Inject constructor(
         }
     }
 
+    override suspend fun resetCache() {
+        photoDao.removeAll()
+    }
+
     private suspend fun fetchNext(maxPhotoId: String?): List<PhotoDbModel> {
         return if (maxPhotoId == null) {
             photoDao.fetchFirstPage(PAGE_SIZE)

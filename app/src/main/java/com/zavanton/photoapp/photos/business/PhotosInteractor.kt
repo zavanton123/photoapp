@@ -9,4 +9,8 @@ class PhotosInteractor @Inject constructor(
     override suspend fun downloadPhotos(maxPhotoId: String?): List<PhotoBusinessModel> {
         return photosRepository.downloadPhotos(maxPhotoId)
     }
+
+    override suspend fun resetCache() {
+        photosRepository.resetCache()
+    }
 }

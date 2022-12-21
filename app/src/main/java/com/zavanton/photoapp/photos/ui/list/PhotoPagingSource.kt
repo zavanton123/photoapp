@@ -26,7 +26,6 @@ class PhotoPagingSource(
 
             LoadResult.Page(
                 data = models,
-                // todo zavanton - check if prevKey = null is ok?
                 prevKey = null,
                 nextKey = models.last().photoId.takeIf { models.isNotEmpty() },
             )

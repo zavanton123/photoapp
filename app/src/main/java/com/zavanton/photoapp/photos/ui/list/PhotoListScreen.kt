@@ -32,7 +32,6 @@ import coil.compose.AsyncImage
 import com.zavanton.photoapp.R
 import com.zavanton.photoapp.photos.ui.models.PhotoUiModel
 import com.zavanton.photoapp.ui.theme.PhotoAppTheme
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -40,11 +39,13 @@ import kotlinx.coroutines.launch
 fun PhotoListScreen(
     items: LazyPagingItems<PhotoUiModel>,
     onPhotoClicked: (PhotoUiModel) -> Unit,
+    onSwipe: suspend () -> Unit,
 ) {
     LoadedPhotos(
         photos = items,
         onPhotoClicked = onPhotoClicked,
         modifier = Modifier.fillMaxWidth(),
+        onSwipe = onSwipe,
     )
 }
 
@@ -54,20 +55,21 @@ private fun LoadedPhotos(
     photos: LazyPagingItems<PhotoUiModel>,
     modifier: Modifier = Modifier,
     onPhotoClicked: (PhotoUiModel) -> Unit,
+    onSwipe: suspend () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     var refreshing by remember { mutableStateOf(false) }
 
     fun refresh() = scope.launch {
         refreshing = true
-
-        // todo zavanton - delete
-        delay(1000)
-
+        onSwipe()
         refreshing = false
     }
 
-    val pullRefreshState = rememberPullRefreshState(refreshing, ::refresh)
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = refreshing,
+        onRefresh = { refresh() },
+    )
 
     Box(
         modifier = modifier.pullRefresh(pullRefreshState),
@@ -76,8 +78,7 @@ private fun LoadedPhotos(
         PullRefreshIndicator(
             refreshing = refreshing,
             state = pullRefreshState,
-            modifier = Modifier
-                .align(Alignment.TopCenter),
+            modifier = Modifier.align(Alignment.TopCenter),
         )
 
         LazyColumn {
@@ -121,15 +122,12 @@ private fun PhotoListItem(
     modifier: Modifier = Modifier,
     onPhotoClicked: (PhotoUiModel) -> Unit,
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            // todo zavanton - delete
-            .size(600.dp)
-            .padding(vertical = 8.dp)
-            .clickable {
-                onPhotoClicked(model)
-            }
+    Row(modifier = modifier
+        .fillMaxWidth()
+        .padding(vertical = 8.dp)
+        .clickable {
+            onPhotoClicked(model)
+        }
     ) {
         AsyncImage(
             modifier = Modifier
@@ -150,8 +148,7 @@ private fun PhotoListItem(
 @Composable
 private fun LoadingData() {
     Text(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         text = stringResource(R.string.loading),
         textAlign = TextAlign.Center,
     )
@@ -160,8 +157,7 @@ private fun LoadingData() {
 @Composable
 private fun LoadingDataError() {
     Text(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         text = stringResource(R.string.load_error),
         textAlign = TextAlign.Center,
     )
@@ -171,6 +167,5 @@ private fun LoadingDataError() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    PhotoAppTheme {
-    }
+    PhotoAppTheme {}
 }
