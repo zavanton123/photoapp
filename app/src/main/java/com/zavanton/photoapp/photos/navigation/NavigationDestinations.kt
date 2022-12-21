@@ -6,8 +6,8 @@ object NavigationDestinations {
 }
 
 object NavigationArguments {
-    const val PHOTO_ID = "PHOTO_ID"
-    const val IMAGE_URL = "IMAGE_URL"
-    const val CONFIDENCE = "CONFIDENCE"
-    const val PHOTO_TITLE = "PHOTO_TITLE"
+    const val PHOTO_ID = "photoId"
+    const val IMAGE_URL = "imageUrl"
+    const val CONFIDENCE = "confidence"
+    const val PHOTO_TITLE = "photoTitle"
 }
