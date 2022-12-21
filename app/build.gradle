@@ -7,6 +7,9 @@ plugins {
 
 apply from: "../versions.gradle"
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     namespace 'com.zavanton.photoapp'
     compileSdk 32
@@ -22,6 +25,8 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        buildConfigField "String", "API_KEY", localProperties['apiKey']
     }
 
     buildTypes {
@@ -81,6 +86,12 @@ dependencies {
     // Moshi
     implementation moshi.core
     kapt moshi.kapt
+
+    // Coil
+    implementation coil.compose
+
+    // Navigation
+    implementation navigation.compose
 
     // TESTING
     // JUnit
