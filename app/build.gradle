@@ -98,6 +98,7 @@ dependencies {
     implementation room.runtime
     kapt room.compiler
     implementation room.paging
+    implementation room.kotlin
 
     // Navigation
     implementation navigation.compose

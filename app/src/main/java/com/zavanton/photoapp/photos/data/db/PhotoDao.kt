@@ -8,11 +8,26 @@ import androidx.room.Query
 interface PhotoDao {
 
     @Query("select * from photo")
-    fun fetchPhotos(): List<PhotoDbModel>
+    suspend fun fetchAllPhotos(): List<PhotoDbModel>
+
+    @Query("select * from photo order by id asc limit 1")
+    suspend fun fetchLastPhoto(): List<PhotoDbModel>
+
+    @Query("select * from photo order by id desc limit 1")
+    suspend fun fetchFirstPhoto(): List<PhotoDbModel>
+
+    @Query("select * from photo where id=:id limit 1")
+    suspend fun fetchPhotoById(id: String): PhotoDbModel
+
+    @Query("select * from photo where id > :id limit 1")
+    suspend fun fetchPreviousPhoto(id: String): PhotoDbModel
+
+    @Query("select * from photo where id < :maxId limit :pageSize")
+    suspend fun fetchPhotoPage(maxId: String, pageSize: Int): List<PhotoDbModel>
 
     @Insert
-    fun insertPhotos(vararg photos: PhotoDbModel)
+    suspend fun insertPhotos(photos: List<PhotoDbModel>)
 
     @Query("delete from photo")
-    fun removeAll()
+    suspend fun removeAll()
 }
