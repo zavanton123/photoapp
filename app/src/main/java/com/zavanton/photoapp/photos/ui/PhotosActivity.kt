@@ -7,12 +7,12 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.zavanton.photoapp.photos.di.PhotosComponentManager
 import com.zavanton.photoapp.photos.navigation.PhotosNavHost
-import com.zavanton.photoapp.photos.ui.models.PhotoListUiState
+import com.zavanton.photoapp.photos.ui.models.PhotoUiModel
 import com.zavanton.photoapp.ui.theme.PhotoAppTheme
 import javax.inject.Inject
 
@@ -28,14 +28,15 @@ class PhotosActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val state: PhotoListUiState by photosViewModel.state.collectAsState(initial = PhotoListUiState.Loading)
+            val items: LazyPagingItems<PhotoUiModel> =
+                photosViewModel.pager.collectAsLazyPagingItems()
 
             PhotoAppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    PhotosNavHost(state = state)
+                    PhotosNavHost(items = items)
                 }
             }
         }
