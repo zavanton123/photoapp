@@ -8,14 +8,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun PhotoDetailsScreen() {
+fun PhotoDetailsScreen(photoId: String) {
     Box(
         modifier = Modifier
             .fillMaxSize(),
     ) {
         Text(
             modifier = Modifier.align(Alignment.Center),
-            text = "Photo details"
+            text = photoId,
         )
     }
 }

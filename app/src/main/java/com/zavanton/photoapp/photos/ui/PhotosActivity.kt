@@ -12,15 +12,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.zavanton.photoapp.photos.di.PhotosComponentManager
+import com.zavanton.photoapp.photos.navigation.NavigationArguments.PHOTO_ID
 import com.zavanton.photoapp.photos.navigation.NavigationDestinations.PHOTO_DETAILS
 import com.zavanton.photoapp.photos.navigation.NavigationDestinations.PHOTO_LIST
 import com.zavanton.photoapp.photos.ui.details.PhotoDetailsScreen
 import com.zavanton.photoapp.photos.ui.list.PhotoListScreen
 import com.zavanton.photoapp.photos.ui.models.PhotoListUiState
+import com.zavanton.photoapp.photos.ui.models.PhotoUiModel
 import com.zavanton.photoapp.ui.theme.PhotoAppTheme
 import javax.inject.Inject
 
@@ -62,15 +66,29 @@ fun PhotosNavHost(
         startDestination = startDestination,
     ) {
         composable(PHOTO_LIST) {
-            val onPhotoClicked: () -> Unit = { navController.navigate(PHOTO_DETAILS) }
+            val onPhotoClicked: (PhotoUiModel) -> Unit =
+                { photoUiModel ->
+                    navController.navigate(
+                        route = "$PHOTO_DETAILS/${photoUiModel.photoId}"
+                    )
+                }
 
             PhotoListScreen(
                 state = state,
                 onPhotoClicked = onPhotoClicked,
             )
         }
-        composable(PHOTO_DETAILS) {
-            PhotoDetailsScreen()
+        composable(
+            route = "$PHOTO_DETAILS/{$PHOTO_ID}",
+            arguments = listOf(
+                navArgument(PHOTO_ID) { type = NavType.StringType },
+            )
+        ) { backStackEntry ->
+            val photoId = backStackEntry.arguments?.getString(PHOTO_ID) ?: ""
+
+            PhotoDetailsScreen(
+                photoId = photoId,
+            )
         }
     }
 }

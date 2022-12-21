@@ -24,7 +24,7 @@ import com.zavanton.photoapp.ui.theme.PhotoAppTheme
 @Composable
 fun PhotoListScreen(
     state: PhotoListUiState,
-    onPhotoClicked: () -> Unit,
+    onPhotoClicked: (PhotoUiModel) -> Unit,
 ) {
     when (state) {
         PhotoListUiState.Loading -> {
@@ -46,7 +46,7 @@ fun PhotoListScreen(
 private fun LoadedPhotos(
     photos: List<PhotoUiModel>,
     modifier: Modifier = Modifier,
-    onPhotoClicked: () -> Unit,
+    onPhotoClicked: (PhotoUiModel) -> Unit,
 ) {
     LazyColumn(modifier = modifier) {
         items(photos) { photo ->
@@ -62,13 +62,13 @@ private fun LoadedPhotos(
 private fun PhotoListItem(
     model: PhotoUiModel,
     modifier: Modifier = Modifier,
-    onPhotoClicked: () -> Unit,
+    onPhotoClicked: (PhotoUiModel) -> Unit,
 ) {
     Row(
         modifier = modifier
             .padding(vertical = 8.dp)
             .clickable {
-                onPhotoClicked()
+                onPhotoClicked(model)
             }
     ) {
         AsyncImage(
