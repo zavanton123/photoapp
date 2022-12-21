@@ -9,13 +9,7 @@ interface PhotoApi {
 
     @GET("v1/items")
     suspend fun download(
-        @Header("Authorization")
-        authorization: String,
-    ): List<PhotoApiModel>
-
-    @GET("v1/items")
-    suspend fun downloadAfterId(
-        @Header("Authorization") authorization: String,
-        @Query("max_id") maxPhotoId: String,
+        @Header("Authorization") apiKey: String,
+        @Query("max_id") maxPhotoId: String? = null,
     ): List<PhotoApiModel>
 }

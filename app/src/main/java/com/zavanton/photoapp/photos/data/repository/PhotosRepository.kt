@@ -16,7 +16,7 @@ class PhotosRepository @Inject constructor(
 
     override suspend fun downloadPhotos(): List<PhotoBusinessModel> {
         return photoApi
-            .download(apiKey)
+            .download(apiKey = apiKey)
             .map {
                 it.toBusinessModel()
             }
