@@ -1,5 +1,6 @@
 package com.zavanton.photoapp.photos.business
 
+import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -14,7 +15,7 @@ internal class PhotosInteractorTest {
     private val photosInteractor = PhotosInteractor(photosRepository)
 
     @Test
-    fun downloadPhotos() {
+    fun `test downloadPhotos returns the items from the repository`() {
         return runBlocking {
             // mock
             val maxPhotoId = "123"
@@ -32,13 +33,13 @@ internal class PhotosInteractorTest {
             val actualItems = photosInteractor.downloadPhotos(maxPhotoId)
 
             // verify
-            assert(actualItems == expectedItems)
+            assertEquals(expectedItems, actualItems)
             verify(photosRepository, times(1)).downloadPhotos(maxPhotoId)
         }
     }
 
     @Test
-    fun resetCache() {
+    fun `test resetCache clears repository`() {
         runBlocking {
             // mock
             whenever(photosRepository.resetCache()).thenReturn(Unit)
