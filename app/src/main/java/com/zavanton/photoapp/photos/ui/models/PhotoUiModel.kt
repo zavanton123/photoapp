@@ -1,6 +1,6 @@
 package com.zavanton.photoapp.photos.ui.models
 
-import com.zavanton.photoapp.photos.business.models.PhotoBusinessModel
+import com.zavanton.photoapp.photos.business.PhotoBusinessModel
 
 data class PhotoUiModel(
     val photoId: String,

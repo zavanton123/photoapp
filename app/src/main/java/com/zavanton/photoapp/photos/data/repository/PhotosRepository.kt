@@ -2,9 +2,9 @@ package com.zavanton.photoapp.photos.data.repository
 
 import com.zavanton.photoapp.app.di.API_KEY_VALUE
 import com.zavanton.photoapp.photos.business.IPhotosRepository
-import com.zavanton.photoapp.photos.business.models.PhotoBusinessModel
+import com.zavanton.photoapp.photos.business.PhotoBusinessModel
 import com.zavanton.photoapp.photos.data.api.PhotoApi
-import com.zavanton.photoapp.photos.data.api.models.toBusinessModel
+import com.zavanton.photoapp.photos.data.api.toBusinessModel
 import com.zavanton.photoapp.photos.data.db.PhotoDao
 import kotlinx.coroutines.delay
 import javax.inject.Inject
