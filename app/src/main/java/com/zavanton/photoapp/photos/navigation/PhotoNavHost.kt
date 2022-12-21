@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import androidx.paging.compose.LazyPagingItems
 import com.zavanton.photoapp.EMPTY
 import com.zavanton.photoapp.photos.navigation.NavigationArguments.CONFIDENCE
 import com.zavanton.photoapp.photos.navigation.NavigationArguments.IMAGE_URL
@@ -14,12 +15,11 @@ import com.zavanton.photoapp.photos.navigation.NavigationArguments.PHOTO_ID
 import com.zavanton.photoapp.photos.navigation.NavigationArguments.PHOTO_TITLE
 import com.zavanton.photoapp.photos.ui.details.PhotoDetailsScreen
 import com.zavanton.photoapp.photos.ui.list.PhotoListScreen
-import com.zavanton.photoapp.photos.ui.models.PhotoListUiState
 import com.zavanton.photoapp.photos.ui.models.PhotoUiModel
 
 @Composable
 fun PhotosNavHost(
-    state: PhotoListUiState,
+    items: LazyPagingItems<PhotoUiModel>,
     navController: NavHostController = rememberNavController(),
     startDestination: String = NavigationDestinations.PHOTO_LIST,
 ) {
@@ -41,7 +41,7 @@ fun PhotosNavHost(
                 }
 
             PhotoListScreen(
-                state = state,
+                items = items,
                 onPhotoClicked = onPhotoClicked,
             )
         }

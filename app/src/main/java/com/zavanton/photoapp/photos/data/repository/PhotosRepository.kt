@@ -14,9 +14,12 @@ class PhotosRepository @Inject constructor(
     private val apiKey: String,
 ) : IPhotosRepository {
 
-    override suspend fun downloadPhotos(): List<PhotoBusinessModel> {
+    override suspend fun downloadPhotos(maxPhotoId: String?): List<PhotoBusinessModel> {
         return photoApi
-            .download(apiKey = apiKey)
+            .download(
+                apiKey = apiKey,
+                maxPhotoId = maxPhotoId,
+            )
             .map {
                 it.toBusinessModel()
             }
