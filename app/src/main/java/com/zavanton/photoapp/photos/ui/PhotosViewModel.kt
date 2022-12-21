@@ -26,17 +26,6 @@ class PhotosViewModel constructor(
         .flow
         .cachedIn(viewModelScope)
 
-    // todo zavanton - delete
-//    val state: Flow<PhotoListUiState> = flow<PhotoListUiState> {
-//        val result = photosInteractor
-//            .downloadPhotos(null)
-//            .map(PhotoBusinessModel::toUiModel)
-//            .let { photoUiModels ->
-//                PhotoListUiState.Loaded(photos = photoUiModels)
-//            }
-//        emit(result)
-//    }
-
     override fun onCleared() {
         super.onCleared()
         PhotosComponentManager.clear()

@@ -5,6 +5,7 @@ import com.zavanton.photoapp.photos.business.IPhotosRepository
 import com.zavanton.photoapp.photos.business.models.PhotoBusinessModel
 import com.zavanton.photoapp.photos.data.api.PhotoApi
 import com.zavanton.photoapp.photos.data.api.models.toBusinessModel
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -22,6 +23,10 @@ class PhotosRepository @Inject constructor(
             )
             .map {
                 it.toBusinessModel()
+            }
+            // todo zavanton - delete
+            .onEach {
+                delay(100)
             }
     }
 }
