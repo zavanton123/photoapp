@@ -12,13 +12,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.zavanton.photoapp.EMPTY
 import com.zavanton.photoapp.photos.di.PhotosComponentManager
+import com.zavanton.photoapp.photos.navigation.NavigationArguments.CONFIDENCE
+import com.zavanton.photoapp.photos.navigation.NavigationArguments.IMAGE_URL
 import com.zavanton.photoapp.photos.navigation.NavigationArguments.PHOTO_ID
+import com.zavanton.photoapp.photos.navigation.NavigationArguments.PHOTO_TITLE
 import com.zavanton.photoapp.photos.navigation.NavigationDestinations.PHOTO_DETAILS
 import com.zavanton.photoapp.photos.navigation.NavigationDestinations.PHOTO_LIST
 import com.zavanton.photoapp.photos.ui.details.PhotoDetailsScreen
@@ -69,7 +72,7 @@ fun PhotosNavHost(
             val onPhotoClicked: (PhotoUiModel) -> Unit =
                 { photoUiModel ->
                     navController.navigate(
-                        route = "$PHOTO_DETAILS/${photoUiModel.photoId}"
+                        route = "$PHOTO_DETAILS?photoId=${photoUiModel.photoId}&photoTitle=${photoUiModel.description}&imageUrl=${photoUiModel.imageLink}&confidence=${photoUiModel.confidence}"
                     )
                 }
 
@@ -79,15 +82,29 @@ fun PhotosNavHost(
             )
         }
         composable(
-            route = "$PHOTO_DETAILS/{$PHOTO_ID}",
+            route = "$PHOTO_DETAILS?photoId={$PHOTO_ID}&photoTitle={$PHOTO_TITLE}&imageUrl={$IMAGE_URL}&confidence={$CONFIDENCE}",
             arguments = listOf(
-                navArgument(PHOTO_ID) { type = NavType.StringType },
+                navArgument(PHOTO_ID) { defaultValue = EMPTY },
+                navArgument(PHOTO_TITLE) { defaultValue = EMPTY },
+                navArgument(IMAGE_URL) { defaultValue = EMPTY },
+                navArgument(CONFIDENCE) { defaultValue = EMPTY },
             )
         ) { backStackEntry ->
-            val photoId = backStackEntry.arguments?.getString(PHOTO_ID) ?: ""
+            val photoId = backStackEntry.arguments?.getString(PHOTO_ID) ?: EMPTY
+            val photoTitle = backStackEntry.arguments?.getString(PHOTO_TITLE) ?: EMPTY
+            val imageUrl = backStackEntry.arguments?.getString(IMAGE_URL) ?: EMPTY
+            val confidence = backStackEntry.arguments?.getString(CONFIDENCE) ?: EMPTY
+            val parsed = confidence.toDoubleOrNull() ?: 0.0
+
+            val model = PhotoUiModel(
+                photoId = photoId,
+                imageLink = imageUrl,
+                description = photoTitle,
+                confidence = parsed,
+            )
 
             PhotoDetailsScreen(
-                photoId = photoId,
+                model = model,
             )
         }
     }
